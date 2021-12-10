@@ -6,33 +6,29 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginStepDefinitions {
 
     private WebDriver driver;
 
     @Before
-    public void setUp(){
+    public void setHeadless()
+    {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless");
-
+        options.setHeadless(true);
         driver = new FirefoxDriver(options);
     }
-
     @Given("that the user accessed the functionality login")
-    public void logiIn(DataTable table) {
+    public void logIn(DataTable table) {
             driver.get("http://multibags.1dt.com.br/shop/customer/customLogon.html");
     }
 
@@ -55,19 +51,13 @@ public class LoginStepDefinitions {
     }
 
     @Then("should login {string}")
-    public void should_login(String succesfully) {
-
-        new WebDriverWait(driver,10L).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver d) {
-
-                    if(d.findElements(By.xpath("//*[@id=\"loginError\"]")).size() != 0)
-                        assertFalse(Boolean.parseBoolean(succesfully));
-                    else
-                        assertTrue(Boolean.parseBoolean(succesfully));
-
-                    return true;
-            }
-        });
+    public void should_login(String successfully) {
+        WebDriverWait wait = new WebDriverWait(driver,10L);
+        WebElement loading = driver.findElement(By.className("loadingoverlay"));
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.invisibilityOf(loading)));
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        assertEquals(successfully.equals("true"), url.contains("dashboard"));
     }
 
     @After()
