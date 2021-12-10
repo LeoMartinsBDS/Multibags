@@ -1,0 +1,5 @@
+multibags\LoginStepDefinitions.class
+multibags\NewAccountStepsDefinitions.class
+multibags\RunCucumberTest.class
+multibags\LoginStepDefinitions$1.class
+multibags\ChangePasswordStepsDefinitions.class
