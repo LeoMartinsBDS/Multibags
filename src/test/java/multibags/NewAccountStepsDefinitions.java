@@ -6,6 +6,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Objects;
 import java.util.UUID;
 import multibags.forms.XPath;
 import multibags.forms.newaccount.PersonalInformationForm;
@@ -32,7 +33,7 @@ public class NewAccountStepsDefinitions {
     @Before
     public void setHeadless() {
         FirefoxOptions options = new FirefoxOptions();
-        boolean useHeadless = System.getenv("USE_WEB_DRIVER_HEADLESS").equals("true");
+        boolean useHeadless = Objects.equals(System.getenv("USE_WEB_DRIVER_HEADLESS"), "true");
         options.setHeadless(useHeadless);
         driver = new FirefoxDriver(options);
     }
