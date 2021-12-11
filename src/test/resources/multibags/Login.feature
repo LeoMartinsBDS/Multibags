@@ -12,9 +12,9 @@ Feature: Login
     When click on the SIGN IN button
     Then should login "<successfully>"
     Examples:
-      | emailAddress    | password      | successfully |
-      | carlos@adao.com | 123456        | false        |
-      | carlos@adao.com | wrongPassword | false        |
-      | carlos.com      | 123456        | false        |
-      | carlos.com      | wrongPassword | false        |
-      | teste@teste.com | 123456        | true         |
+      | emailAddress          | password      | successfully |
+      | carlos-wrong@adao.com | 123456        | false        |
+      | carlos@adao.com       | wrongPassword | false        |
+      | carlos.com            | 123456        | false        |
+      | carlos.com            | wrongPassword | false        |
+      | teste@teste.com       | 123456        | true         |
